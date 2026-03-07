@@ -4,7 +4,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 const Staff = () => {
     const { user, isAuthenticated } = useAuth0();
 
-    const auth0NamespaceURI = 'https://myapp.org/roles';
+    const auth0NamespaceURI = 'https://My-App-02-vibe.org/roles';
     const roles = user?.[auth0NamespaceURI] || [];
 
     return (

@@ -14,7 +14,8 @@ const Auth0ProviderWithRedirectCallback = ({ children }) => {
     const navigate = useNavigate();
 
     const onRedirectCallback = (appState) => {
-        navigate(appState?.returnTo || window.location.pathname);
+        // After login, send user exactly where they intended to go, or home!
+        navigate(appState?.returnTo || '/');
     };
 
     return (
@@ -22,7 +23,8 @@ const Auth0ProviderWithRedirectCallback = ({ children }) => {
             domain={import.meta.env.REACT_APP_AUTH0_DOMAIN}
             clientId={import.meta.env.REACT_APP_AUTH0_CLIENT_ID}
             authorizationParams={{
-                redirect_uri: window.location.origin,
+                // Ask Auth0 to send the token payload to the /callback route
+                redirect_uri: window.location.origin + '/callback',
             }}
             onRedirectCallback={onRedirectCallback}
         >
@@ -41,6 +43,9 @@ function App() {
                         <Routes>
                             <Route path="/" element={<Home />} />
                             <Route path="/about" element={<About />} />
+
+                            {/* Auth0 explicitly catches tokens here gracefully */}
+                            <Route path="/callback" element={<div className="page fade-in"><div className="loader-container"><div className="loader blue"></div></div></div>} />
 
                             {/* Protected Routes directly guarded by ProtectedRoute component */}
                             <Route element={<ProtectedRoute />}>

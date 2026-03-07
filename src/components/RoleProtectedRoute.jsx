@@ -7,7 +7,7 @@ const RoleProtectedOutlet = ({ requiredRole }) => {
 
     // Auth0 Roles custom claim. It depends on Action Rule namespace setup in Auth0
     // e.g. https://your-namespace.com/roles
-    const auth0NamespaceURI = 'https://myapp.org/roles';
+    const auth0NamespaceURI = 'https://My-App-02-vibe.org/roles';
     const roles = user?.[auth0NamespaceURI] || [];
 
     if (roles.includes(requiredRole)) {
